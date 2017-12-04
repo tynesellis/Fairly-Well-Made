@@ -1,6 +1,6 @@
 angular
     .module("fwmApp")
-    .factory("userFactory", function ($http, firebase) {
+    .factory("userFactory", function ($http) {
         return Object.create(null, {
             "register": {
                 value: user => {
