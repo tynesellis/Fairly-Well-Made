@@ -1,0 +1,23 @@
+{
+  "name": "fairly-well-made",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tynesellis/Fairly-Well-Made.git"
+  },
+  "author": "Paul Ellis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tynesellis/Fairly-Well-Made/issues"
+  },
+  "homepage": "https://github.com/tynesellis/Fairly-Well-Made#readme",
+  "description": "",
+  "dependencies": {
+    "angular": "^1.6.7",
+    "angular-route": "^1.6.7"
+  }
+}
