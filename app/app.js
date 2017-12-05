@@ -1,1 +1,2 @@
-const app = angular.module("fwmApp", ["ngRoute", "firebase"]);
+const app = angular.module("fwmApp", ["ngRoute"]);
+
