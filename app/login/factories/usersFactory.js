@@ -12,7 +12,8 @@ angular.module("fwmApp")
                     if ($location.url() === "/login") {
                         $location.url("/userHome")
                     }
-                }, 500);
+                }, 500)
+                $route.reload();
 
             } else {
                 currentUserData = null
