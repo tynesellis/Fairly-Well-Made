@@ -73,10 +73,12 @@ angular.module("fwmApp")
 
         //When the user leaves the orders page...
         $scope.clearPin = () => {
+            window.location.reload()
+            
             //affects the ng-if that shows the home page elements
-            $scope.wants = "";
+            // $scope.wants = "";
             //reset myOrders so the next pull doesn't double up on what's already there
-            $scope.myOrders = [];
+            // $scope.myOrders = [];
             //find the scripts that were added in the peInjectPinScript directive
             // const scriptsToRemove = Array.from(document.getElementsByTagName("script")).filter(s => s.src.includes("pinterest"));
             /*remove those scripts so they will not run before the element they affect (pinterest anchor widget on openReqs.html)
