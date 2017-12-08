@@ -1,0 +1,15 @@
+<div ng-controller="login-registerCtrl">
+    <h1>Welcome!</h1>
+    <h2>Let's Get You Started:</h2>
+
+    <input type="text" ng-model="authenticatedUser.firstName" placeholder="First Name">
+    <input type="text" ng-model="authenticatedUser.lastName" placeholder="Last Name">
+    <input type="text" ng-model="authenticatedUser.streetNumber" placeholder="Street Number">
+    <input type="text" ng-model="authenticatedUser.streetName" placeholder="Street Name">
+    <input type="text" ng-model="authenticatedUser.city" placeholder="City">
+    <input type="text" ng-model="authenticatedUser.state" placeholder="State">
+    <input type="text" ng-model="authenticatedUser.zip" placeholder="Zip Code">
+    <input type="text" ng-model="authenticatedUser.pinterest" placeholder="Your Pinterest Username">
+    <input type="text" ng-model="authenticatedUser.venmo" placeholder="First Venmo User Name">
+    <button ng-click="setUpUser()">Submit</button>
+</div>
