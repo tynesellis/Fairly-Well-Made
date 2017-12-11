@@ -24,8 +24,16 @@ angular
                         return this.cache
                     })
                 }
-            }
-
+            },
+            add: {
+                value: function (newData, idToken, section, firebaseId, targetKey) {
+                    return $http({
+                        method: "PUT",
+                        url: `https://fairly-well-made.firebaseio.com/${section}/${firebaseId}/${targetKey}/.json?auth=${idToken}`,
+                        data: newData 
+                    })
+                }
+            },
 
         })
     })

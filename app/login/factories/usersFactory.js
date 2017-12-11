@@ -13,7 +13,6 @@ angular.module("fwmApp")
                         $location.url("/userHome")
                     }
                 }, 500)
-                $route.reload();
 
             } else {
                 currentUserData = null

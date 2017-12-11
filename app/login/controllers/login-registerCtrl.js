@@ -1,5 +1,5 @@
 angular.module("fwmApp")
-    .controller("login-registerCtrl", function ($scope, $location, UsersFactory, userHomeFactory) {
+    .controller("login-registerCtrl", function ($scope, $location, UsersFactory, userHomeFactory, $route) {
         $scope.user = {}
 
         // Value of wants set for ng-if conditions of partials to include based on clicks of user
@@ -12,6 +12,7 @@ angular.module("fwmApp")
 
         $scope.registerUser = function (user) {
             UsersFactory.registerWithEmail(user).then(function () {
+                $scope.user = {};
                 $scope.userWants("setup")
             })
         }
@@ -23,8 +24,7 @@ angular.module("fwmApp")
 
         $scope.loginUser = function (user) {
             UsersFactory.authenticate(user).then(function (didLogin) {
-                $scope.user.email = {}
-                $scope.user.password = {}
+                $scope.user = {}
                 $location.path("/userHome")
             })
         }
@@ -48,6 +48,7 @@ angular.module("fwmApp")
                     }
                     userHomeFactory.add(newUserObject, idToken, "users")
                     $scope.authenticatedUser = {}
+                    $route.reload();
                     $location.url("/userHome")
                 })
         }
