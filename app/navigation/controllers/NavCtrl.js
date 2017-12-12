@@ -1,9 +1,12 @@
 angular.module("fwmApp").controller("NavCtrl",
-function ($scope, UsersFactory) {
+    function ($scope, UsersFactory) {
 
-    $scope.isAuthenticated = () => UsersFactory.isAuthenticated();
+        $scope.isAuthenticated = () => UsersFactory.isAuthenticated();
 
-    $scope.logout = () => UsersFactory.logout();
+        $scope.logout = () => {
+            UsersFactory.logout();
+            window.location.reload()
+        }
 
-}
+    }
 )

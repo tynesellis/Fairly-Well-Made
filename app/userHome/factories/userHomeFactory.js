@@ -25,12 +25,12 @@ angular
                     })
                 }
             },
-            add: {
+            update: {
                 value: function (newData, idToken, section, firebaseId, targetKey) {
                     return $http({
                         method: "PUT",
                         url: `https://fairly-well-made.firebaseio.com/${section}/${firebaseId}/${targetKey}/.json?auth=${idToken}`,
-                        data: JSON.stringify(newData)
+                        data: angular.toJson(newData)
                     })
                 }
             }
