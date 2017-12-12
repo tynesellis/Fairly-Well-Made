@@ -44,7 +44,7 @@ angular.module("fwmApp")
                     const newOrder = {
                         "buyer": $scope.userInfo.uid,
                         "pinterest": $scope.userInfo.pinterest,
-                        "board": $scope.newOrder.board,
+                        "board": $scope.newOrder.board.replace(/ /g, '-').toLowerCase(),
                         "description": $scope.newOrder.description,
                         "size": $scope.newOrder.size,
                         "seller": "Nobody yet"
