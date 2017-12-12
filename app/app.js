@@ -1,2 +1,2 @@
-const app = angular.module("fwmApp", ["ngRoute"]);
+const app = angular.module("fwmApp", ["ngRoute", "ngFileUpload"]);
 

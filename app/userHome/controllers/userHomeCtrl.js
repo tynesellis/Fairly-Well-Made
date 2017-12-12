@@ -1,8 +1,6 @@
 angular.module("fwmApp")
-    .controller("userHomeCtrl", function ($scope, $location, userHomeFactory, UsersFactory, $timeout, $route) {
+    .controller("userHomeCtrl", function ($scope, $location, userHomeFactory, UsersFactory, $timeout, $route, Upload) {
 
-        //store current user ID for matching where that id is written in firebase
-        const currentUserId = firebase.auth().currentUser.uid
         //store user info pulled from firebase
         $scope.userInfo = {}
         //flag for ng-if: changes when user info is retrieved
@@ -10,17 +8,20 @@ angular.module("fwmApp")
 
         //when the route changes to /userHome...
         $scope.$on('$routeChangeSuccess', function () {
-            //..get a fresh token...
-            firebase.auth().currentUser.getIdToken(true)
-                .then(idToken => {
-                    //..get the users section of firebase...
-                    userHomeFactory.pull("users", idToken).then(users => {
-                        //..set userInfo scope to the user that matches the logged in user
-                        $scope.userInfo = users.find(user => user.uid === currentUserId)
-                        //change the ng-if flag so the content loads together
-                        $scope.loaded = "yep"
+            //..and firebase has stopped being wierd about authentication...
+            firebase.auth().onAuthStateChanged(function (user) {
+                //..get a fresh token...
+                firebase.auth().currentUser.getIdToken(true)
+                    .then(idToken => {
+                        //..get the users section of firebase...
+                        userHomeFactory.pull("users", idToken).then(users => {
+                            //..set userInfo scope to the user that matches the logged in user
+                            $scope.userInfo = users.find(user => user.uid === firebase.auth().currentUser.uid)
+                            //change the ng-if flag so the content loads together
+                            $scope.loaded = "yep"
+                        })
                     })
-                })
+            })
         });
 
         //value affect ng-ifs of partials
@@ -66,22 +67,77 @@ angular.module("fwmApp")
                     //get orders from firebase
                     userHomeFactory.pull("orders", idToken).then(orders => {
                         //filter out orders with a user id that match the id of the signed in user
-                        $scope.myOrders = orders.filter(order => order.buyer === currentUserId)
+                        $scope.myOrders = orders.filter(order => order.buyer === firebase.auth().currentUser.uid)
                     })
                 })
         }
 
+        //array of open orders
+        $scope.erbodysOrders = [];
+        $scope.takeOrders = () => {
+            //affects ng-if to show partial that will contain list of open orders
+            $scope.userWants("takeOrder")
+            //get a fresh token
+            firebase.auth().currentUser.getIdToken(true)
+                .then(idToken => {
+                    //get orders from firebase
+                    userHomeFactory.pull("orders", idToken).then(orders => {
+                        //filter out orders that haven't been picked up by a seller and aren't the requests of the current user
+                        $scope.erbodysOrders = orders.filter(order => order.seller === "Nobody yet" && order.buyer !== firebase.auth().currentUser.uid)
+                    })
+                })
+        }
+
+        //ng-click function when a user wants to take on an order
+        $scope.requestOrder = () => {
+            //set firebaseID to id stored in button: will matched that of firebase order id
+            let firebaseId = event.path[0].id;
+            //get fresh token
+            firebase.auth().currentUser.getIdToken(true)
+                .then(idToken => {
+                    //add the current user as the seller in the order
+                    userHomeFactory.add(firebase.auth().currentUser.uid, idToken, "orders", firebaseId, "seller");
+                    $scope.wants = ""
+                })
+        }
+
+        $scope.ordersBeingWorked = []
+        $scope.workingOrders = () => {
+            //affects ng-if to show partial that will contain list of working orders
+            $scope.userWants("workingOrders")
+            //get a fresh token
+            firebase.auth().currentUser.getIdToken(true)
+                .then(idToken => {
+                    //get orders from firebase
+                    userHomeFactory.pull("orders", idToken).then(orders => {
+                        const cuid = firebase.auth().currentUser.uid;
+                        //filter out orders picked to work on by user
+                        $scope.ordersBeingWorked = orders.filter(order => order.seller === cuid)
+                    })
+                })
+        }
+        $scope.selectedOrder = null;
+        $scope.selectOrder = () => {
+            $scope.selectedOrder = event.target.id
+        }
+        $scope.uploadSketch = (newFile) => {
+            console.log(newFile)
+            const storageRef = firebase.storage().ref();
+            const sketchRef = storageRef.child(newFile.name);
+            const sketchImagesRef = storageRef.child(`images/${newFile.name}`);
+            sketchRef.put(newFile).then(() => {
+                sketchRef.getDownloadURL().then(newURL => {
+                    firebase.auth().currentUser.getIdToken(true)
+                    .then(idToken =>{
+                        userHomeFactory.add(newURL, idToken, "orders", $scope.selectedOrder, "image")
+                    })
+                });
+            })
+        }
+
         //When the user leaves the orders page...
         $scope.clearPin = () => {
-            //affects the ng-if that shows the home page elements
-            $scope.wants = "";
-            //reset myOrders so the next pull doesn't double up on what's already there
-            $scope.myOrders = [];
-            //find the scripts that were added in the peInjectPinScript directive
-            // const scriptsToRemove = Array.from(document.getElementsByTagName("script")).filter(s => s.src.includes("pinterest"));
-            /*remove those scripts so they will not run before the element they affect (pinterest anchor widget on openReqs.html)
-            has been written to the page*/
-            // scriptsToRemove.forEach(s => document.body.removeChild(s))
+            window.location.reload()
         }
 
     })
@@ -101,7 +157,6 @@ angular.module("fwmApp")
                 pinScript.type = "text/javascript";
                 pinScript.async = true;
                 pinScript.defer = true;
-                console.log(pinScript);
                 //append script to doc
                 document.getElementsByTagName("body")[0].appendChild(pinScript);
             };
