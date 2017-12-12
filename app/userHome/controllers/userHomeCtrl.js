@@ -96,8 +96,9 @@ angular.module("fwmApp")
             firebase.auth().currentUser.getIdToken(true)
                 .then(idToken => {
                     //add the current user as the seller in the order
-                    userHomeFactory.add(firebase.auth().currentUser.uid, idToken, "orders", firebaseId, "seller");
-                    $scope.wants = ""
+                    userHomeFactory.update(firebase.auth().currentUser.uid, idToken, "orders", firebaseId, "seller")
+                    userHomeFactory.update($scope.userInfo.firstName, idToken, "orders", firebaseId, "sellerName")
+                    userHomeFactory.update($scope.userInfo.venmo, idToken, "orders", firebaseId, "sellerVenmo")
                 })
         }
 
@@ -128,10 +129,41 @@ angular.module("fwmApp")
             sketchRef.put(newFile).then(() => {
                 sketchRef.getDownloadURL().then(newURL => {
                     firebase.auth().currentUser.getIdToken(true)
-                    .then(idToken =>{
-                        userHomeFactory.add(newURL, idToken, "orders", $scope.selectedOrder, "image")
-                    })
+                        .then(idToken => {
+                            userHomeFactory.update(newURL, idToken, "orders", $scope.selectedOrder, "image")
+                        })
                 });
+            })
+        }
+
+        $scope.updatedOrder = {}
+        $scope.updateOrder = () => {
+            const orderId = event.target.id;
+            const thisOrder = $scope.ordersBeingWorked.find(order => order.firebaseId === orderId) ||
+                $scope.myOrders.find(order => order.firebaseId === orderId);
+            firebase.auth().currentUser.getIdToken(true)
+                .then(idToken => {
+                    if ($scope.updatedOrder.comment !== undefined) {
+                        debugger
+                        $scope.updatedOrder.comment.id = $scope.userInfo.firstName;
+                        thisOrder.comments = thisOrder.comments || [];
+                        thisOrder.comments.push($scope.updatedOrder.comment);
+                        userHomeFactory.update(thisOrder.comments, idToken, "orders", orderId, "comments")
+                        .then($scope.updatedOrder.comment = "")
+                    }
+                    if ($scope.updatedOrder.price !== undefined) {
+                        thisOrder.price = $scope.updatedOrder.price;
+                        userHomeFactory.update(thisOrder.price, idToken, "orders", orderId, "price")
+                        .then($scope.updatedOrder.price = "")
+                    };
+                })
+        }
+
+        $scope.approveOrder = (key)=> {
+            const orderId = event.target.id;
+            firebase.auth().currentUser.getIdToken(true)
+            .then(idToken => {
+                userHomeFactory.update(true, idToken, "orders", orderId, key)
             })
         }
 

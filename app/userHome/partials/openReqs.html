@@ -1,10 +1,26 @@
 
 <h1>Here's you orders:</h1>
 <div ng-repeat="order in myOrders" pe-inject-pin-script>
+    <h1 ng-if="order.approved !== undefined && order.completed === undefined">:) BEING MADE NOW :)</h1>
+    <h1 ng-if="order.completed === true">:):)DONE:):) </h1>
+
     <h1>Order for: {{order.description}}</h1>
+    <h3 ng-if="order.sellerName !== undefined">Seller: {{order.sellerName}}</h3>
     <h3>Size: {{order.size}}</h3>
      <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="240" 
      data-pin-scale-width="80" href="https://www.pinterest.com/{{order.pinterest}}/{{order.board}}/"></a>
+     <h3 ng-if="order.image !== undefined">Proposed Sketch: </h3>
+     <img ng-if="order.image !== undefined" src="{{order.image}}" width="400" height="auto">
+     <h3 ng-if="order.price !== undefined">Current Proposed Price: {{order.price}}</h3>
+     <h3 ng-if="order.comments !== undefined">Comments:</h3>
+     <div ng-if="order.comments !== undefined" ng-repeat="comment in order.comments">
+         <p>{{comment.id}}: {{comment.value}}</p>
+     </div>
+     <textarea rows="4" cols="50" placeholder="Add Comments" ng-model="updatedOrder.comment.value"></textarea>
+     <button id='{{order.firebaseId}}' ng-click="updateOrder()">Submit</button>
+     <button ng-if="order.seller !== 'Nobody yet'" id='{{order.firebaseId}}' ng-click="approveOrder('approved')">Approved: Make this for me!!</button>
+     <a ng-if="order.completed !== undefined" href="https://venmo.com/{{order.sellerVenmo}}" target="_blank">Pay Seller</a>
+     
 </div>
 <button ng-click="clearPin()">Back to My Home Page</button>
 
