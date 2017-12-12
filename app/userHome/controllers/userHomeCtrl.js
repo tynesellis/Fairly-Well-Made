@@ -10,17 +10,19 @@ angular.module("fwmApp")
         $scope.$on('$routeChangeSuccess', function () {
             //..and firebase has stopped being wierd about authentication...
             firebase.auth().onAuthStateChanged(function (user) {
-                //..get a fresh token...
-                firebase.auth().currentUser.getIdToken(true)
-                    .then(idToken => {
-                        //..get the users section of firebase...
-                        userHomeFactory.pull("users", idToken).then(users => {
-                            //..set userInfo scope to the user that matches the logged in user
-                            $scope.userInfo = users.find(user => user.uid === firebase.auth().currentUser.uid)
-                            //change the ng-if flag so the content loads together
-                            $scope.loaded = "yep"
+                if ($location.url() === "/userHome") {
+                    //..get a fresh token...
+                    firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            //..get the users section of firebase...
+                            userHomeFactory.pull("users", idToken).then(users => {
+                                //..set userInfo scope to the user that matches the logged in user
+                                $scope.userInfo = users.find(user => user.uid === firebase.auth().currentUser.uid)
+                                //change the ng-if flag so the content loads together
+                                $scope.loaded = "yep"
+                            })
                         })
-                    })
+                }
             })
         });
 
@@ -144,29 +146,29 @@ angular.module("fwmApp")
             firebase.auth().currentUser.getIdToken(true)
                 .then(idToken => {
                     if ($scope.updatedOrder.comment !== undefined) {
-                        debugger
                         $scope.updatedOrder.comment.id = $scope.userInfo.firstName;
                         thisOrder.comments = thisOrder.comments || [];
                         thisOrder.comments.push($scope.updatedOrder.comment);
                         userHomeFactory.update(thisOrder.comments, idToken, "orders", orderId, "comments")
-                        .then($scope.updatedOrder.comment = "")
+                            .then($scope.updatedOrder.comment = "")
                     }
                     if ($scope.updatedOrder.price !== undefined) {
                         thisOrder.price = $scope.updatedOrder.price;
                         userHomeFactory.update(thisOrder.price, idToken, "orders", orderId, "price")
-                        .then($scope.updatedOrder.price = "")
+                            .then($scope.updatedOrder.price = "")
                     };
                 })
         }
 
-        $scope.approveOrder = (key)=> {
+        $scope.approveOrder = (key) => {
             const orderId = event.target.id;
             firebase.auth().currentUser.getIdToken(true)
-            .then(idToken => {
-                userHomeFactory.update(true, idToken, "orders", orderId, key)
-            })
+                .then(idToken => {
+                    userHomeFactory.update(true, idToken, "orders", orderId, key)
+                })
         }
-
+        $scope.packingView = false;
+        $scope.togglePacking = (b)=>{$scope.packingView = b}
         //When the user leaves the orders page...
         $scope.clearPin = () => {
             window.location.reload()
