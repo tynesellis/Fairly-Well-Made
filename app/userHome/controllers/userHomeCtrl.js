@@ -1,5 +1,5 @@
 angular.module("fwmApp")
-    .controller("userHomeCtrl", function ($scope, $location, userHomeFactory, UsersFactory, $timeout, $route) {
+    .controller("userHomeCtrl", function ($scope, $location, userHomeFactory, UsersFactory, $timeout, $route, Upload) {
 
         //store user info pulled from firebase
         $scope.userInfo = {}
@@ -87,22 +87,22 @@ angular.module("fwmApp")
                     })
                 })
         }
-        
+
         //ng-click function when a user wants to take on an order
         $scope.requestOrder = () => {
             //set firebaseID to id stored in button: will matched that of firebase order id
             let firebaseId = event.path[0].id;
             //get fresh token
             firebase.auth().currentUser.getIdToken(true)
-            .then(idToken => {
-                //add the current user as the seller in the order
-                userHomeFactory.add(firebase.auth().currentUser.uid, idToken, "orders", firebaseId, "seller");
-                $scope.wants = ""
-            }) 
+                .then(idToken => {
+                    //add the current user as the seller in the order
+                    userHomeFactory.add(firebase.auth().currentUser.uid, idToken, "orders", firebaseId, "seller");
+                    $scope.wants = ""
+                })
         }
-        
+
         $scope.ordersBeingWorked = []
-        $scope.workingOrders = ()=>{
+        $scope.workingOrders = () => {
             //affects ng-if to show partial that will contain list of working orders
             $scope.userWants("workingOrders")
             //get a fresh token
@@ -110,20 +110,29 @@ angular.module("fwmApp")
                 .then(idToken => {
                     //get orders from firebase
                     userHomeFactory.pull("orders", idToken).then(orders => {
-                        const cuid = firebase.auth().currentUser.uid;   
+                        const cuid = firebase.auth().currentUser.uid;
                         //filter out orders picked to work on by user
                         $scope.ordersBeingWorked = orders.filter(order => order.seller === cuid)
                     })
                 })
         }
-
-        $scope.sketch = null;
-        $scope.addSketch = () => {
-            let firebaseId = event.path[0].id;
-            firebase.auth().currentUser.getIdToken(true)
-            .then(idToken => {
-                userHomeFactory.add($scope.sketch, idToken, "orders", firebaseId, "image");
-            }) 
+        $scope.selectedOrder = null;
+        $scope.selectOrder = () => {
+            $scope.selectedOrder = event.target.id
+        }
+        $scope.uploadSketch = (newFile) => {
+            console.log(newFile)
+            const storageRef = firebase.storage().ref();
+            const sketchRef = storageRef.child(newFile.name);
+            const sketchImagesRef = storageRef.child(`images/${newFile.name}`);
+            sketchRef.put(newFile).then(() => {
+                sketchRef.getDownloadURL().then(newURL => {
+                    firebase.auth().currentUser.getIdToken(true)
+                    .then(idToken =>{
+                        userHomeFactory.add(newURL, idToken, "orders", $scope.selectedOrder, "image")
+                    })
+                });
+            })
         }
 
         //When the user leaves the orders page...

@@ -30,10 +30,10 @@ angular
                     return $http({
                         method: "PUT",
                         url: `https://fairly-well-made.firebaseio.com/${section}/${firebaseId}/${targetKey}/.json?auth=${idToken}`,
-                        data: newData 
+                        data: JSON.stringify(newData)
                     })
                 }
-            },
+            }
 
         })
     })
