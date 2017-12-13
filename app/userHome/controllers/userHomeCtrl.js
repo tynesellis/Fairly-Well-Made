@@ -43,6 +43,7 @@ angular.module("fwmApp")
                     //create order
                     const newOrder = {
                         "buyer": $scope.userInfo.uid,
+                        "buyerName": $scope.userInfo.firstName,
                         "pinterest": $scope.userInfo.pinterest,
                         "board": $scope.newOrder.board.replace(/ /g, '-').toLowerCase(),
                         "description": $scope.newOrder.description,
@@ -93,14 +94,16 @@ angular.module("fwmApp")
         //ng-click function when a user wants to take on an order
         $scope.requestOrder = () => {
             //set firebaseID to id stored in button: will matched that of firebase order id
-            let firebaseId = event.path[0].id;
+            let buttonClicked = event;
             //get fresh token
             firebase.auth().currentUser.getIdToken(true)
                 .then(idToken => {
                     //add the current user as the seller in the order
-                    userHomeFactory.update(firebase.auth().currentUser.uid, idToken, "orders", firebaseId, "seller")
-                    userHomeFactory.update($scope.userInfo.firstName, idToken, "orders", firebaseId, "sellerName")
-                    userHomeFactory.update($scope.userInfo.venmo, idToken, "orders", firebaseId, "sellerVenmo")
+                    userHomeFactory.update(firebase.auth().currentUser.uid, idToken, "orders", buttonClicked.path[0].id, "seller")
+                    userHomeFactory.update($scope.userInfo.firstName, idToken, "orders", buttonClicked.path[0].id, "sellerName")
+                    userHomeFactory.update($scope.userInfo.venmo, idToken, "orders", buttonClicked.path[0].id, "sellerVenmo")
+                    alert("It's Yours!!")
+                    buttonClicked.path[1].remove()
                 })
         }
 
@@ -124,7 +127,7 @@ angular.module("fwmApp")
             $scope.selectedOrder = event.target.id
         }
         $scope.uploadSketch = (newFile) => {
-            console.log(newFile)
+            alert("Got it!")
             const storageRef = firebase.storage().ref();
             const sketchRef = storageRef.child(newFile.name);
             const sketchImagesRef = storageRef.child(`images/${newFile.name}`);
@@ -156,25 +159,53 @@ angular.module("fwmApp")
                         thisOrder.price = $scope.updatedOrder.price;
                         userHomeFactory.update(thisOrder.price, idToken, "orders", orderId, "price")
                             .then($scope.updatedOrder.price = "")
-                    };
+                    }
                 })
         }
 
         $scope.approveOrder = (key) => {
             const orderId = event.target.id;
+            const message = document.createElement("h3");
+
+            if (key === 'approved') {
+                alert("Sweeeeet.  We'll get it going for you!");
+            } else if (key === 'completed') {
+                message.innerHTML = "Completed Order.  Come back when you have received payment to print a packing slip";
+            }
+            event.path[0].remove();
+            event.path[1].appendChild(message);
+
             firebase.auth().currentUser.getIdToken(true)
                 .then(idToken => {
                     userHomeFactory.update(true, idToken, "orders", orderId, key)
                 })
         }
+        $scope.printSlip = () => {
+            print(event.path[1])
+        }
+
+        $scope.gotPaid = () => {
+            const clicked = event;
+            firebase.auth().currentUser.getIdToken(true)
+            .then(idToken => {
+                userHomeFactory.update(true, idToken, "orders", clicked.path[0].id, "paid").then(() => {
+                    clicked.path[0].remove();
+                    const message = document.createElement("h3");
+                    message.innerHTML = "Payment marked recieved.  Buyer will be notified that shipping is imminent."
+                    clicked.path[1].appendChild(message)
+                })
+            }) 
+        }
+
         $scope.packingView = false;
-        $scope.togglePacking = (b)=>{$scope.packingView = b}
+        $scope.togglePacking = (b) => { $scope.packingView = b }
         //When the user leaves the orders page...
         $scope.clearPin = () => {
             window.location.reload()
         }
 
     })
+
 
 
     /*The pinterest board widget require pinterest's javascript tag.  However, that tag cannot be included until the element it 

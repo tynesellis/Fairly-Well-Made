@@ -1,0 +1,45 @@
+body {
+    background-image: url("../images/background.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.orderBox {
+    background-color: rgba(255, 255, 255, 0.699);
+    padding: 1em;
+    border-radius: 1px;
+    margin: 1em auto 1em auto;
+    width: 80%;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.068);
+}
+
+.userHome_main button {
+    background-color: rgba(255, 255, 255, 0.212); 
+    padding: .4em 1em;
+    border-radius: 25px;
+    border: none;
+    color: white;
+    font-size: 1em;
+    box-shadow: 1px 1px 1px grey;
+}
+
+input {
+    display: block;
+    width: 90%;
+    margin: .5em auto;
+    padding: .5em;
+    border-radius: 3px;
+}
+
+#titleTag {
+    color: white;
+    font-family: courier;
+    font-weight: lighter;
+}
+
+.label_packing {
+    border: 1px dashed black;
+    padding: 1em;
+    margin-bottom: 1em;
+}

@@ -1,6 +1,8 @@
-<h1>Welcome to Fairly, Well Made</h1>
+<div ng-if="wants !== 'setup'">
 <h2>Start Registration Below</h2>
 <input type="email" ng-model="user.email" placeholder="Email">
 <input type="password" ng-model="user.password" placeholder="Password">
 <button ng-click="registerUser(user)">Next</button>
+</div>
 
+<div ng-if="wants === 'setup'" ng-include="'app/login/partials/userSetup.html'"></div>

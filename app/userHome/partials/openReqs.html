@@ -1,8 +1,10 @@
 
 <h1>Here's you orders:</h1>
-<div ng-repeat="order in myOrders" pe-inject-pin-script>
+<div class="orderBox" ng-repeat="order in myOrders" pe-inject-pin-script>
     <h1 ng-if="order.approved !== undefined && order.completed === undefined">Request Status:) BEING MADE NOW :)</h1>
-    <h1 ng-if="order.completed === true">:):)DONE:):) </h1>
+    <h1 ng-if="order.paid === true">Request Status: {{order.sellerName}} is shipping it!!</h1>
+    
+    <h1 ng-if="order.completed === true && order.paid !== true">Request Status: :):)DONE:):) </h1>
     <h1>Order for: {{order.description}}</h1>
     <h1 ng-if="order.sellerName === undefined">Request Status: Open</h1>
     
@@ -20,7 +22,7 @@
      </div>
      <textarea rows="4" cols="50" placeholder="Add Comments" ng-model="updatedOrder.comment.value"></textarea>
      <button id='{{order.firebaseId}}' ng-click="updateOrder()">Submit</button>
-     <button ng-if="order.seller !== 'Nobody yet' && order.approved === undefined" id='{{order.firebaseId}}' ng-click="approveOrder('approved')">Approved: Make this for me!!</button>
+     <button ng-if="order.price !== undefined && order.approved === undefined" id='{{order.firebaseId}}' ng-click="approveOrder('approved')">Approved: Make this for me!!</button>
      <a ng-if="order.completed !== undefined" href="https://venmo.com/{{order.sellerVenmo}}" target="_blank">Pay Seller</a>
      
 </div>

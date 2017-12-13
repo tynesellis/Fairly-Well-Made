@@ -1,9 +1,9 @@
-<div ng-if="loaded === 'yep' && wants === ''" ng-model="userInfo">
-    <h1 >Welcome, {{userInfo.firstName}} {{userInfo.lastName}}!</h1>
-    <button ng-click="getMyOrders()">I Want To See My Orders</button>
-    <button ng-click="userWants('makeOrder')">I Want To Make An Order</button>
-    <button ng-click="takeOrders()">I Want To Take An Order</button>
-    <button ng-click="workingOrders()">See Orders I'm Working</button>
+<div class="userHome_main" ng-if="loaded === 'yep' && wants === ''" ng-model="userInfo">
+    <h1 >Welcome, {{userInfo.firstName}}!</h1>
+    <button ng-click="getMyOrders()">Let's See My Orders!</button>
+    <button ng-click="userWants('makeOrder')">Let's Make An Order!</button>
+    <button ng-click="takeOrders()">Let's Take An Order!</button>
+    <button ng-click="workingOrders()">Let's See Orders I'm Working!</button>
 </div>
 
 <section ng-if="wants === 'reqs'" ng-include="'app/userHome/partials/openReqs.html'"></section>

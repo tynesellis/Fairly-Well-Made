@@ -5,15 +5,13 @@ angular.module("fwmApp")
         // Value of wants set for ng-if conditions of partials to include based on clicks of user
         $scope.wants = null;
         $scope.userWants = (whatTheyWant) => {
-            if (whatTheyWant === '/login') {
-                $location.url("/login")
-            } else {$scope.wants = whatTheyWant};
+            $location.url(whatTheyWant)
         }
 
         $scope.registerUser = function (user) {
             UsersFactory.registerWithEmail(user).then(function () {
                 $scope.user = {};
-                $scope.userWants("setup")
+                $scope.wants = "setup"
             })
         }
 
@@ -46,10 +44,11 @@ angular.module("fwmApp")
                         "pinterest": $scope.authenticatedUser.pinterest,
                         "venmo": $scope.authenticatedUser.venmo
                     }
-                    userHomeFactory.add(newUserObject, idToken, "users")
-                    $scope.authenticatedUser = {}
-                    $route.reload();
-                    $location.url("/userHome")
+                    userHomeFactory.add(newUserObject, idToken, "users").then(() => {
+                        $scope.authenticatedUser = {}
+                        $route.reload();
+                        $location.url("/userHome")
+                    })
                 })
         }
     })
