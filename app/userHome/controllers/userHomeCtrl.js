@@ -143,6 +143,7 @@ angular.module("fwmApp")
 
         $scope.updatedOrder = {}
         $scope.updateOrder = () => {
+            const clicked = event;
             const orderId = event.target.id;
             const thisOrder = $scope.ordersBeingWorked.find(order => order.firebaseId === orderId) ||
                 $scope.myOrders.find(order => order.firebaseId === orderId);
@@ -158,7 +159,13 @@ angular.module("fwmApp")
                     if ($scope.updatedOrder.price !== undefined) {
                         thisOrder.price = $scope.updatedOrder.price;
                         userHomeFactory.update(thisOrder.price, idToken, "orders", orderId, "price")
-                            .then($scope.updatedOrder.price = "")
+                            .then(()=>{
+                                $scope.updatedOrder.price = "";
+                                const message = document.createElement("h3");
+                                message.innerHTML = "Price proposed.  Check back for buyer's opinion."
+                                clicked.path[0].remove();
+                                clicked.path[1].appendChild(message);
+                            })
                     }
                 })
         }
@@ -168,7 +175,7 @@ angular.module("fwmApp")
             const message = document.createElement("h3");
 
             if (key === 'approved') {
-                alert("Sweeeeet.  We'll get it going for you!");
+                message.innerHTML = "Order Approved! We'll notify the seller. Check back for updates";                
             } else if (key === 'completed') {
                 message.innerHTML = "Completed Order.  Come back when you have received payment to print a packing slip";
             }
@@ -183,7 +190,7 @@ angular.module("fwmApp")
         $scope.printSlip = () => {
             print(event.path[1])
         }
-
+        $scope.packingId = "";
         $scope.gotPaid = () => {
             const clicked = event;
             firebase.auth().currentUser.getIdToken(true)
@@ -196,9 +203,15 @@ angular.module("fwmApp")
                 })
             }) 
         }
-
+        $scope.packingSlipOrder = null;
         $scope.packingView = false;
-        $scope.togglePacking = (b) => { $scope.packingView = b }
+        $scope.togglePacking = (b) => { 
+            const clicked = event;
+            $scope.packingView = b 
+            $scope.packingSlipOrder = $scope.ordersBeingWorked.find(order => order.firebaseId === clicked.path[0].id) 
+
+        }
+
         //When the user leaves the orders page...
         $scope.clearPin = () => {
             window.location.reload()
