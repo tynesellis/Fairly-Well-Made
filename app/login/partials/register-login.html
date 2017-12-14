@@ -1,5 +1,5 @@
-<button ng-if="wants === null" ng-click="userWants('register')">Sign Me Up!</button>
-<button ng-click="userWants('/login')">Log In :)</button>
-
+<div class="userHome_main">
+    <button  ng-click="userWants('/register')">Sign Me Up!</button>
+    <button ng-click="userWants('/login')">Log In :)</button>
+</div>
 <div ng-if="wants === 'register'" ng-include="'app/login/partials/register.html'"></div>
-<div ng-if="wants === 'setup'" ng-include="'app/login/partials/userSetup.html'"></div>

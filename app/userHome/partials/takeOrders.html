@@ -1,10 +1,12 @@
 <h1>List of open orders below</h1>
 
-<div ng-repeat="order in erbodysOrders" pe-inject-pin-script>
+<div class="orderBox" ng-repeat="order in erbodysOrders" pe-inject-pin-script>
     <h1>Order for: {{order.description}}</h1>
+    <h2>Requested By: {{order.buyerName}}</h2>
     <h3>Size: {{order.size}}</h3>
      <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="240" 
      data-pin-scale-width="80" href="https://www.pinterest.com/{{order.pinterest}}/{{order.board}}/"></a>
      <button id='{{order.firebaseId}}' ng-click="requestOrder()">I'll take it!</button>
 </div>
+
 <button ng-click="clearPin()">Back to My Home Page</button>

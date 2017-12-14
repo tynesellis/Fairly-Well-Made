@@ -9,7 +9,7 @@ angular.module("fwmApp")
                 console.log("User is authenticated")
 
                 $timeout(function () {
-                    if ($location.url() === "/login") {
+                    if ($location.url() !== "/register") {
                         $location.url("/userHome")
                     }
                 }, 500)
