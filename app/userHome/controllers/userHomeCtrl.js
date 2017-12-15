@@ -30,6 +30,7 @@ angular.module("fwmApp")
         $scope.wants = ""
         //changes wants value on various clicks.  value passed from call in html
         $scope.userWants = (wants) => {
+            $scope.wants = 0;
             $scope.wants = wants;
         }
 
@@ -74,7 +75,14 @@ angular.module("fwmApp")
                 })
 
         }
-
+        $scope.pages = 0;
+        $scope.page = 0;
+        $scope.changePage = (direction) => {
+            if (direction === "next" && $scope.page < ($scope.pages -1)) {
+                $scope.page += 1;
+            } else if (direction === "back" && $scope.page !== 0)
+            {$scope.page -= 1}
+        }
         //array of orders that match the user
         $scope.myOrders = [];
         $scope.getMyOrders = () => {
@@ -87,6 +95,7 @@ angular.module("fwmApp")
                     userHomeFactory.pull("orders", idToken).then(orders => {
                         //filter out orders with a user id that match the id of the signed in user
                         $scope.myOrders = orders.filter(order => order.buyer === firebase.auth().currentUser.uid)
+                        $scope.pages = $scope.myOrders.length;
                     })
                 })
         }
