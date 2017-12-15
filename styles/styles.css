@@ -43,3 +43,19 @@ input {
     padding: 1em;
     margin-bottom: 1em;
 }
+.pinsContainter {
+    margin: 0 auto;
+}
+.inspBoard {
+    border: 1px solid white;
+}
+.pin {
+    display: inline-block;
+    margin: .5em;
+}
+
+.pin_img {
+    border-radius: 10px;
+    border: .5px solid white;
+    object-fit: cover;
+}

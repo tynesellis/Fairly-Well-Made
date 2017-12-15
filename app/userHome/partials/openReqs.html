@@ -11,11 +11,13 @@
     <h3 ng-if="order.sellerName !== undefined">Seller: {{order.sellerName}}</h3>
     <h3>Size: {{order.size}}</h3>
     <h4 ng-if="order.approved !== true">Inspiration Board</h4>
-    <div class="d-flex">
-        <div ng-repeat="pin in order.pins">
-            <a href="{{pin.address}}" target="_blank">
-                <img src="{{pin.image}}" height="100" width="100">
-            </a>
+    <div class="d-flex flex-wrap justify-content-between inspBoard">
+        <div class="pinsContainter">
+            <div class="pin" ng-repeat="pin in order.pins">
+                <a href="{{pin.address}}" target="_blank">
+                    <img height="100" width="100" class="pin_img" src="{{pin.image}}">
+                </a>
+            </div>
         </div>
     </div>
     <h3 ng-if="order.image !== undefined">Proposed Sketch: </h3>
