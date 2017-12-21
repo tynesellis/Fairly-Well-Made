@@ -1,5 +1,5 @@
-<div class="d-flex">
-    <p ng-disabled="firstPage" ng-class="{'disabled': firstPage}" class="pageChange" ng-click="changePage('back')"><</p>
+
+    <button ng-disabled="firstPage" ng-class="{'disabled': firstPage}" class="pageChange" ng-click="changePage('back')"><</button>
 
     <div ng-hide="{{$index}} === page" ng-show="{{$index}} !== page" class="orderBox" ng-repeat="order in myOrders">
         <h1 ng-if="order.approved !== undefined && order.completed === undefined">Request Status:) BEING MADE NOW :)</h1>
@@ -35,6 +35,4 @@
         <a ng-if="order.completed !== undefined && order.paid !==true" href="https://venmo.com/{{order.sellerVenmo}}" target="_blank">Pay Seller</a>
     </div>
 
-    <p ng-disabled="lastPage" ng-class="{'disabled': lastPage}" class="pageChange" ng-click="changePage('next')">></p>
-</div>
-<button ng-click="userWants('')">Back to My Home Page</button>
+    <button ng-disabled="lastPage" ng-class="{'disabled': lastPage}" class="pageChange" ng-click="changePage('next')">></button>

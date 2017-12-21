@@ -11,10 +11,11 @@
 </head>
 
 <body ng-app="fwmApp">
-    <h1 id="titleTag" class="display-1">Fairly, Well Made</h1>
-    <nav ng-include="'app/navigation/partials/navigation.html'"></nav>
 
-    <div class="container mt-3 pb-5" ng-view></div>
+
+    <div id="mainNgView" ng-view></div>
+
+    <nav id="bottomNav" ng-include="'app/navigation/partials/navigation.html'"></nav>
 
     <script>
         window.pAsyncInit = function() {
