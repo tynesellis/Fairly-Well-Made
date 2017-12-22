@@ -5,15 +5,78 @@ body {
     background-attachment: fixed;
 }
 
-.orderBox {
-    background-color: rgba(255, 255, 255, 0.699);
-    padding: 1em;
-    border-radius: 1px;
-    margin: 1em auto 1em auto;
-    width: 80%;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.068);
+#header {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    margin-bottom: 1.25em;
+    padding: 0 1em;
 }
 
+#bottomNav {
+    position: fixed;
+    bottom: 0;
+    color: white;
+    width: 100%;
+}
+
+#navDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+#mainNgView {
+    display: block;
+
+}
+
+.homePages {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    justify-content: space-between;
+}
+
+.orderBox {
+    background-color: rgba(255, 255, 255, 0.699);
+    padding: 1em 2em;
+    border-radius: 5px;
+    margin: .5em auto;
+    width: 60%;
+    height: 500px;
+    overflow-y: scroll;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.068);
+    display: inline-block;
+    text-align: left;
+}
+
+.pageChange {
+    display: inline-block;
+    font-size: 5em;
+    color: white;
+    margin: .5em;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    padding: 0;
+    transform: scale(1, 2.5);
+}
+
+.disabled {
+    color: rgba(128, 128, 128, 0.623);
+}
+
+.pageChange:hover {
+    cursor: pointer;
+}
+
+.pageChange:focus {
+    outline: none;
+    font-weight: bolder;
+}
+.userHome_main {
+    display: flex;
+    justify-content: center;
+}
 .userHome_main button {
     background-color: rgba(255, 255, 255, 0.212); 
     padding: .4em 1em;
@@ -22,6 +85,12 @@ body {
     color: white;
     font-size: 1em;
     box-shadow: 1px 1px 1px grey;
+    margin: .5em 2em 2em 2em;
+}
+
+.userHome_main button:focus {
+    outline: none;
+    background-color: rgba(121, 245, 218, 0.349);
 }
 
 input {
@@ -43,3 +112,36 @@ input {
     padding: 1em;
     margin-bottom: 1em;
 }
+
+.pin_head h2, img {
+    display: inline-block;
+}
+
+.inspBoard {
+    width: 50%;
+}
+.pin {
+    display: inline-block;
+    margin: .5em;
+}
+
+.pin_img {
+    border-radius: 10px;
+    border: .5px solid white;
+    object-fit: cover;
+    overflow-y: scroll;
+}
+
+#logout {
+    display: inline-block;
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+    margin-right: 1em;
+    padding: 1em;
+    border: none;
+}
+
+#logout:hover {
+    cursor: pointer;
+}
+

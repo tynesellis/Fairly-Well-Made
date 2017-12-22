@@ -1,12 +1,17 @@
-<h1>List of open orders below</h1>
+<button ng-disabled="firstPage" ng-class="{'disabled': firstPage}" class="pageChange" ng-click="changePage('back')"><</button>
 
-<div class="orderBox" ng-repeat="order in erbodysOrders" pe-inject-pin-script>
+<div ng-hide="{{$index}} !== page" class="orderBox" ng-repeat="order in erbodysOrders">
     <h1>Order for: {{order.description}}</h1>
     <h2>Requested By: {{order.buyerName}}</h2>
     <h3>Size: {{order.size}}</h3>
-     <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="240" 
-     data-pin-scale-width="80" href="https://www.pinterest.com/{{order.pinterest}}/{{order.board}}/"></a>
+    <div class="d-flex">
+            <div ng-repeat="pin in order.pins">
+                <a href="{{pin.address}}" target="_blank">
+                    <img src="{{pin.image}}" height="100" width="100">
+                </a>
+            </div>
+        </div>
      <button id='{{order.firebaseId}}' ng-click="requestOrder()">I'll take it!</button>
 </div>
 
-<button ng-click="clearPin()">Back to My Home Page</button>
+<button ng-disabled="lastPage" ng-class="{'disabled': lastPage}" class="pageChange" ng-click="changePage('next')">></button>

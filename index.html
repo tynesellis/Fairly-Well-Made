@@ -11,22 +11,41 @@
 </head>
 
 <body ng-app="fwmApp">
-    <h1 id="titleTag" class="display-1">Fairly, Well Made</h1>
-    <nav ng-include="'app/navigation/partials/navigation.html'"></nav>
+    <header id="header">
+        <h1 id="titleTag" class="display-1">Fairly, Well Made</h1>
+        <h1>Welcome, {{userInfo.firstName}}!</h1>
+    </header>
 
-    <div class="container mt-3 pb-5" ng-view></div>
+    <div id="mainNgView" ng-view></div>
 
-   
+    <nav id="bottomNav" ng-include="'app/navigation/partials/navigation.html'"></nav>
+
+    <script>
+        window.pAsyncInit = function () {
+            PDK.init({
+                appId: "4938339992171723562",
+                cookie: true
+            });
+        };
+
+        (function (d, s, id) {
+            var js, pjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//assets.pinterest.com/sdk/sdk.js";
+            pjs.parentNode.insertBefore(js, pjs);
+        }(document, 'script', 'pinterest-jssdk'));
+    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-      crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-      crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     <script src="./lib/node_modules/angular/angular.min.js"></script>
     <script src="./lib/node_modules/firebase/firebase.js"></script>
     <script src="./lib/node_modules/angular-route/angular-route.min.js"></script>
     <script src="./lib/node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
-        
+
     <script src="./app/app.js"></script>
     <script src="./app/app.config.js"></script>
     <script src="./app/login/factories/usersFactory.js"></script>
@@ -34,7 +53,7 @@
     <script src="./app/login/controllers/login-registerCtrl.js"></script>
     <script src="./app/userHome/controllers/userHomeCtrl.js"></script>
     <script src="./app/navigation/controllers/NavCtrl.js"></script>
-    
+
 </body>
 
 </html>
