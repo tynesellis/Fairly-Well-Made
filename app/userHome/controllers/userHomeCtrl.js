@@ -120,7 +120,9 @@ angular.module("fwmApp")
                     //get orders from firebase
                     userHomeFactory.pull("orders", idToken).then(orders => {
                         //filter out orders that haven't been picked up by a seller and aren't the requests of the current user
-                        $scope.erbodysOrders = orders.filter(order => order.seller === "Nobody yet" && order.buyer !== firebase.auth().currentUser.uid)
+                        const filteredOrders = orders.filter(order => order.seller === "Nobody yet" && order.buyer !== firebase.auth().currentUser.uid);
+                        $scope.pages = filteredOrders.length;
+                        $scope.erbodysOrders = filteredOrders;
                     })
                 })
         }

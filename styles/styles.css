@@ -5,6 +5,14 @@ body {
     background-attachment: fixed;
 }
 
+#header {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    margin-bottom: 1.25em;
+    padding: 0 1em;
+}
+
 #bottomNav {
     position: fixed;
     bottom: 0;
@@ -31,8 +39,8 @@ body {
 
 .orderBox {
     background-color: rgba(255, 255, 255, 0.699);
-    padding: 1em;
-    border-radius: 1px;
+    padding: 1em 2em;
+    border-radius: 5px;
     margin: .5em auto;
     width: 60%;
     height: 500px;
@@ -65,7 +73,10 @@ body {
     outline: none;
     font-weight: bolder;
 }
-
+.userHome_main {
+    display: flex;
+    justify-content: center;
+}
 .userHome_main button {
     background-color: rgba(255, 255, 255, 0.212); 
     padding: .4em 1em;
@@ -74,6 +85,12 @@ body {
     color: white;
     font-size: 1em;
     box-shadow: 1px 1px 1px grey;
+    margin: .5em 2em 2em 2em;
+}
+
+.userHome_main button:focus {
+    outline: none;
+    background-color: rgba(121, 245, 218, 0.349);
 }
 
 input {
@@ -127,3 +144,4 @@ input {
 #logout:hover {
     cursor: pointer;
 }
+

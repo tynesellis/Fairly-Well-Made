@@ -1,4 +1,4 @@
-<h1 ng-if="packingView === false">Orders I'm Working On</h1>
+<button ng-if="packingView === false" ng-disabled="firstPage" ng-class="{'disabled': firstPage}" class="pageChange" ng-click="changePage('back')"><</button>
 
 <div ng-if="packingView === false" class="orderBox" ng-repeat="order in ordersBeingWorked">
     <h1 ng-if="order.approved !== undefined && order.completed !== true">Request Status: :) ORDER APPROVED :)</h1>
@@ -33,6 +33,7 @@
     <button id='{{order.firebaseId}}' ng-if="order.completed === true && packingView === false && order.price !== true" ng-click="gotPaid()">I got paid. Shipping Now -></button>
 
 </div>
+<button ng-if="packingView === false" ng-disabled="lastPage" ng-class="{'disabled': lastPage}" class="pageChange" ng-click="changePage('next')">></button>
 
 <div class="orderBox" ng-if="packingView === true">
 
@@ -54,4 +55,3 @@
     <button ng-click="togglePacking(false); clearPin()">Back to Orders</button>
 
 </div>
-<button ng-click="userWants('')">Back to My Home Page</button>
