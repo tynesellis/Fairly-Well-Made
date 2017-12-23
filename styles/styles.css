@@ -13,6 +13,17 @@ body {
     padding: 0 1em;
 }
 
+#userHome_header {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+#userHome_header h1 {
+    padding: 0 .25em;
+    margin: .25em;
+}
+
 #bottomNav {
     position: fixed;
     bottom: 0;

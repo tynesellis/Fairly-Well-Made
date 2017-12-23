@@ -6,25 +6,25 @@ angular.module("fwmApp")
         //flag for ng-if: changes when user info is retrieved
         $scope.loaded = "nope"
 
-        //when the route changes to /userHome...
-        $scope.$on('$routeChangeSuccess', function () {
-            //..and firebase has stopped being wierd about authentication...
-            firebase.auth().onAuthStateChanged(function (user) {
-                if ($location.url() === "/userHome") {
-                    //..get a fresh token...
-                    firebase.auth().currentUser.getIdToken(true)
-                        .then(idToken => {
-                            //..get the users section of firebase...
-                            userHomeFactory.pull("users", idToken).then(users => {
-                                //..set userInfo scope to the user that matches the logged in user
-                                $scope.userInfo = users.find(user => user.uid === firebase.auth().currentUser.uid)
-                                //change the ng-if flag so the content loads together
-                                $scope.loaded = "yep"
-                            })
+       //when the route changes to /userHome...
+       $scope.$on('$routeChangeSuccess', function () {
+        //..and firebase has stopped being wierd about authentication...
+        firebase.auth().onAuthStateChanged(function (user) {
+            if ($location.url() === "/userHome") {
+                //..get a fresh token...
+                firebase.auth().currentUser.getIdToken(true)
+                    .then(idToken => {
+                        //..get the users section of firebase...
+                        userHomeFactory.pull("users", idToken).then(users => {
+                            //..set userInfo scope to the user that matches the logged in user
+                            $scope.userInfo = users.find(user => user.uid === firebase.auth().currentUser.uid)
+                            //change the ng-if flag so the content loads together
+                            $scope.loaded = "yep"
                         })
-                }
-            })
-        });
+                    })
+            }
+        })
+    });
 
         //value affect ng-ifs of partials
         $scope.wants = ""
@@ -34,80 +34,11 @@ angular.module("fwmApp")
             $scope.wants = wants;
         }
 
-        //empty object for bound data of new order
-        $scope.newOrder = {}
-        //function to create new order and post it to firebase 'orders' section
+        
+       
 
-
-        $scope.makeOrder = () => {
-            const pins = [];
-            userHomeFactory.pins($scope.userInfo.pinterest, $scope.newOrder.board.replace(/ /g, '-').toLowerCase())
-                .then(response => {
-                    response.data.data.forEach(pin => {
-                        let eachPin = {
-                            "image": pin.image.original.url,
-                            "address": pin.url
-                        }
-                        pins.push(eachPin)
-                    })
-                }).then(() => {
-                    //get fresh token
-                    firebase.auth().currentUser.getIdToken(true)
-                        .then(idToken => {
-                            //create order
-                            const newOrder = {
-                                "buyer": $scope.userInfo.uid,
-                                "buyerName": $scope.userInfo.firstName,
-                                "pinterest": $scope.userInfo.pinterest,
-                                "board": $scope.newOrder.board.replace(/ /g, '-').toLowerCase(),
-                                "pins": pins,
-                                "description": $scope.newOrder.description,
-                                "size": $scope.newOrder.size,
-                                "seller": "Nobody yet"
-                            }
-                            //add to firebase: passes in new object, id token, and specifies section of firebase db
-                            userHomeFactory.add(newOrder, idToken, "orders")
-                            //clear out newOrder
-                            $scope.newOrder = {}
-                            //reset want value to affect ng-ifs of home page
-                            $scope.wants = ""
-                        })
-                })
-
-        }
-        $scope.pages = 0;
-        $scope.page = 0;
-        $scope.lastPage = false;
-        $scope.firstPage = true;
-
-        $scope.changePage = (direction) => {
-            if (direction === "next" && $scope.page < ($scope.pages -1)) {
-                $scope.page += 1;
-            } else if (direction === "back" && $scope.page !== 0)
-            {$scope.page -= 1}
-            if (($scope.pages -1) === $scope.page) {
-                $scope.lastPage = true
-            }
-            else {$scope.lastPage = false}
-            if ($scope.page !== 0) {$scope.firstPage = false}
-            else {$scope.firstPage = true}
-        }
-        //array of orders that match the user
-        $scope.myOrders = [];
-        $scope.getMyOrders = () => {
-            //affects ng-if to show partial that will contain list of orders
-            $scope.userWants("reqs")
-            //get a fresh token
-            firebase.auth().currentUser.getIdToken(true)
-                .then(idToken => {
-                    //get orders from firebase
-                    userHomeFactory.pull("orders", idToken).then(orders => {
-                        //filter out orders with a user id that match the id of the signed in user
-                        $scope.myOrders = orders.filter(order => order.buyer === firebase.auth().currentUser.uid)
-                        $scope.pages = $scope.myOrders.length;
-                    })
-                })
-        }
+       
+        
 
         //array of open orders
         $scope.erbodysOrders = [];

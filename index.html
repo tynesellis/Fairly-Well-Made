@@ -11,9 +11,8 @@
 </head>
 
 <body ng-app="fwmApp">
-    <header id="header">
-        <h1 id="titleTag" class="display-1">Fairly, Well Made</h1>
-        <h1>Welcome, {{userInfo.firstName}}!</h1>
+    <header id="header" ng-controller="headerCtrl">
+        <h1 ng-hide="loggedIn" id="titleTag" class="display-1">Fairly, Well Made</h1>
     </header>
 
     <div id="mainNgView" ng-view></div>
@@ -50,8 +49,11 @@
     <script src="./app/app.config.js"></script>
     <script src="./app/login/factories/usersFactory.js"></script>
     <script src="./app/userHome/factories/userHomeFactory.js"></script>
+    <script src="./app/login/controllers/headerCtrl.js"></script>
     <script src="./app/login/controllers/login-registerCtrl.js"></script>
     <script src="./app/userHome/controllers/userHomeCtrl.js"></script>
+    <script src="./app/userHome/controllers/newOrderCtrl.js"></script>
+    <script src="./app/userHome/controllers/reqsCtrl.js"></script>
     <script src="./app/navigation/controllers/NavCtrl.js"></script>
 
 </body>
