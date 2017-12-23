@@ -1,7 +1,7 @@
 
     <button ng-disabled="firstPage" ng-class="{'disabled': firstPage}" class="pageChange" ng-click="changePage('back')"><</button>
 
-    <div ng-hide="{{$index}} === page" ng-show="{{$index}} !== page" class="orderBox" ng-repeat="order in myOrders">
+    <div ng-show="{{$index}} === page" class="orderBox" ng-repeat="order in myOrders">
         <h1 ng-if="order.approved !== undefined && order.completed === undefined">Request Status:) BEING MADE NOW :)</h1>
         <h1 ng-if="order.paid === true">Request Status: Paid | {{order.sellerName}} is shipping it!!</h1>
 
