@@ -1,12 +1,12 @@
 <header id="userHome_header">
-    <h1 id="titleTag">Fairly, Well Made</h1>
+    <h1>Fairly, Well Made</h1>
     <h1 ng-if="userInfo !== {}">Welcome, {{userInfo.firstName}}!</h1>
 </header>
 
 <div class="userHome_main" ng-model="userInfo">
     <button ng-click="userWants('reqs')">Let's See My Orders!</button>
     <button ng-click="userWants('makeOrder')">Let's Make An Order!</button>
-    <button ng-click="takeOrders()">Let's Take An Order!</button>
+    <button ng-click="userWants('takeOrder')">Let's Take An Order!</button>
     <button ng-click="userWants('workingOrders')">Let's See Orders I'm Working!</button>
 </div>
 
@@ -14,5 +14,5 @@
 
 <section class="homePages" ng-if="wants === 'reqs'" ng-include="'app/userHome/partials/openReqs.html'" ng-controller="reqsCtrl" ng-init="getMyOrders()"></section>
 <section class="homePages" ng-if="wants === 'makeOrder'" ng-include="'app/userHome/partials/newOrder.html'"></section>
-<section class="homePages" ng-if="wants === 'takeOrder'" ng-include="'app/userHome/partials/takeOrders.html'"></section>
+<section class="homePages_vertical" ng-if="wants === 'takeOrder'" ng-include="'app/userHome/partials/takeOrders.html'" ng-controller="takeOrdersCtrl" ng-init="takeOrders()"></section>
 <section class="homePages" ng-if="wants === 'workingOrders'" ng-include="'app/userHome/partials/workingOrders.html'" ng-controller="workingOrdersCtrl" ng-init="workingOrders()"></section>
