@@ -7,7 +7,7 @@
     <button ng-click="userWants('reqs')">Let's See My Orders!</button>
     <button ng-click="userWants('makeOrder')">Let's Make An Order!</button>
     <button ng-click="takeOrders()">Let's Take An Order!</button>
-    <button ng-click="workingOrders()">Let's See Orders I'm Working!</button>
+    <button ng-click="userWants('workingOrders')">Let's See Orders I'm Working!</button>
 </div>
 
 
@@ -15,4 +15,4 @@
 <section class="homePages" ng-if="wants === 'reqs'" ng-include="'app/userHome/partials/openReqs.html'" ng-controller="reqsCtrl" ng-init="getMyOrders()"></section>
 <section class="homePages" ng-if="wants === 'makeOrder'" ng-include="'app/userHome/partials/newOrder.html'"></section>
 <section class="homePages" ng-if="wants === 'takeOrder'" ng-include="'app/userHome/partials/takeOrders.html'"></section>
-<section class="homePages" ng-if="wants === 'workingOrders'" ng-include="'app/userHome/partials/workingOrders.html'"></section>
+<section class="homePages" ng-if="wants === 'workingOrders'" ng-include="'app/userHome/partials/workingOrders.html'" ng-controller="workingOrdersCtrl" ng-init="workingOrders()"></section>

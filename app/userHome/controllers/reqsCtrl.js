@@ -14,7 +14,6 @@ angular.module("fwmApp").controller("reqsCtrl",
                     userHomeFactory.pull("orders", idToken).then(orders => {
                         //filter out orders with a user id that match the id of the signed in user
                         $scope.myOrders = orders.filter(order => order.buyer === firebase.auth().currentUser.uid)
-                        debugger
                         $scope.pages = $scope.myOrders.length;
                     })
                 })

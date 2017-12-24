@@ -34,29 +34,21 @@ angular.module("fwmApp")
             $scope.wants = wants;
         }
 
-        
-       
-
-       
-        
-
-        //array of open orders
-        $scope.erbodysOrders = [];
-        $scope.takeOrders = () => {
-            //affects ng-if to show partial that will contain list of open orders
-            $scope.userWants("takeOrder")
-            //get a fresh token
-            firebase.auth().currentUser.getIdToken(true)
-                .then(idToken => {
-                    //get orders from firebase
-                    userHomeFactory.pull("orders", idToken).then(orders => {
-                        //filter out orders that haven't been picked up by a seller and aren't the requests of the current user
-                        const filteredOrders = orders.filter(order => order.seller === "Nobody yet" && order.buyer !== firebase.auth().currentUser.uid);
-                        $scope.pages = filteredOrders.length;
-                        $scope.erbodysOrders = filteredOrders;
-                    })
-                })
-        }
+         //array of open orders
+         $scope.erbodysOrders = [];
+         $scope.takeOrders = () => {
+             //get a fresh token
+             firebase.auth().currentUser.getIdToken(true)
+                 .then(idToken => {
+                     //get orders from firebase
+                     userHomeFactory.pull("orders", idToken).then(orders => {
+                         //filter out orders that haven't been picked up by a seller and aren't the requests of the current user
+                         const filteredOrders = orders.filter(order => order.seller === "Nobody yet" && order.buyer !== firebase.auth().currentUser.uid);
+                         $scope.pages = filteredOrders.length;
+                         $scope.erbodysOrders = filteredOrders;
+                     })
+                 })
+         }
 
         //ng-click function when a user wants to take on an order
         $scope.requestOrder = () => {
@@ -74,21 +66,7 @@ angular.module("fwmApp")
                 })
         }
 
-        $scope.ordersBeingWorked = []
-        $scope.workingOrders = () => {
-            //affects ng-if to show partial that will contain list of working orders
-            $scope.userWants("workingOrders")
-            //get a fresh token
-            firebase.auth().currentUser.getIdToken(true)
-                .then(idToken => {
-                    //get orders from firebase
-                    userHomeFactory.pull("orders", idToken).then(orders => {
-                        const cuid = firebase.auth().currentUser.uid;
-                        //filter out orders picked to work on by user
-                        $scope.ordersBeingWorked = orders.filter(order => order.seller === cuid)
-                    })
-                })
-        }
+    
         $scope.selectedOrder = null;
         $scope.selectOrder = () => {
             $scope.selectedOrder = event.target.id
