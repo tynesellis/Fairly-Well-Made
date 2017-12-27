@@ -23,7 +23,7 @@
             </div>
         </div>
         <h3 ng-if="order.image !== undefined">Proposed Sketch: </h3>
-        <img ng-if="order.image !== undefined" src="{{order.image}}" class="pin_img" height="100px" width="100px">
+        <a href="{{order.image}}" target="_blank"><img ng-if="order.image !== undefined" src="{{order.image}}" width=auto height="150"></a>
         <h3 ng-if="order.price !== undefined">Current Proposed Price: {{order.price}}</h3>
         <h3 ng-if="order.comments !== undefined">Comments:</h3>
         <div ng-if="order.comments !== undefined" ng-repeat="comment in order.comments">

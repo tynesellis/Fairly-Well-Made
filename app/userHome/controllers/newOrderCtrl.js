@@ -37,7 +37,7 @@ angular.module("fwmApp").controller("newOrder",
                             //clear out newOrder
                             $scope.newOrder = {}
                             //reset want value to affect ng-ifs of home page
-                            $scope.userWants('')
+                            $scope.userWants('reqs')
                         })
                 })
 

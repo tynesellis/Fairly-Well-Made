@@ -99,6 +99,10 @@ body {
     display: block;
 }
 
+.orderBox button:hover {
+    cursor: pointer;
+}
+
 #setupBox {
     height: 80%
 }
@@ -142,12 +146,16 @@ body {
     margin: .5em 2em 2em 2em;
 }
 
+.userHome_main button:hover {
+    cursor: pointer;
+}
+
 .userHome_main button:focus {
     outline: none;
     background-color: rgba(121, 245, 218, 0.349);
 }
 
-input {
+input, textarea {
     display: block;
     height: 2em;
     width: 90%;
