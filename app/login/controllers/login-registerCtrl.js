@@ -26,7 +26,9 @@ angular.module("fwmApp")
                 $location.path("/userHome")
             })
         }
-
+        $scope.hideMe = ()=>{
+            event.path[0].remove()
+        }
         $scope.newbie = {}
 
         $scope.setUpUser = function () {

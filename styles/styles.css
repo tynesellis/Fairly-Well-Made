@@ -16,6 +16,8 @@ body {
     display: flex;
     justify-content: space-between;
     color: white;
+    border-bottom: .25px solid white;
+    margin-bottom: 1em;
 }
 
 #userHome_header h1 {
@@ -69,6 +71,39 @@ body {
     text-align: left;
 }
 
+.regHead {
+    text-align: center;
+}
+
+#pinAuth {
+    text-decoration: none;
+    width: 50%;
+    text-align: center;
+    color: rgba(0, 13, 128, 0.925);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.orderBox button {
+    background-color: rgba(0, 13, 128, 0.925);
+    padding: .4em 2em;
+    border-radius: 25px;
+    border: none;
+    color: white;
+    font-size: 1em;
+    box-shadow: 1px 1px 1px grey;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    display: block;
+}
+
+#setupBox {
+    height: 80%
+}
+
+
 .pageChange {
     display: inline-block;
     font-size: 5em;
@@ -114,10 +149,11 @@ body {
 
 input {
     display: block;
+    height: 2em;
     width: 90%;
-    margin: .5em auto;
+    margin: 1em auto;
     padding: .5em;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 #titleTag {
