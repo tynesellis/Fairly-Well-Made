@@ -1,6 +1,7 @@
 angular
     .module("fwmApp")
     .factory("userHomeFactory", function ($http) {
+        let shipping = {};
         return Object.create(null, {
             add: {
                 value: function (newData, idToken, section) {
@@ -42,6 +43,16 @@ angular
                     })
                 }
                 
+            }, 
+            setShipping: {
+                value: ()=>{
+                    shipping = event.path[0].id;
+                }
+            },
+            getShipping: {
+                value: ()=>{
+                    return shipping
+                }
             }
 
         })

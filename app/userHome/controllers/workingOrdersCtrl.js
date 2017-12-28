@@ -53,9 +53,9 @@ angular.module("fwmApp").controller("workingOrdersCtrl",
             else { $scope.firstPage = true }
         }
 
-        $scope.printSlip = () => {
-            print(event.path[1])
-        }
+       $scope.setShipping = ()=>{
+           userHomeFactory.setShipping();
+       }
         $scope.packingId = "";
         $scope.gotPaid = () => {
             const clicked = event;

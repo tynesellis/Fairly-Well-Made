@@ -28,10 +28,11 @@ angular.module("fwmApp")
 
         //value affect ng-ifs of partials
         $scope.wants = ""
+        $scope.chosen = "";
         //changes wants value on various clicks.  value passed from call in html
         $scope.userWants = (wants) => {
-            $scope.wants = 0;
             $scope.wants = wants;
+            $scope.chosen = wants;
         }
 
     })

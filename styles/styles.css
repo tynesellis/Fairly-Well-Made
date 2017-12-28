@@ -64,7 +64,7 @@ body {
     border-radius: 5px;
     margin: .5em auto;
     width: 60%;
-    height: 500px;
+    height: 575px;
     overflow-y: scroll;
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.068);
     display: inline-block;
@@ -85,7 +85,8 @@ body {
     margin-right: auto;
 }
 
-.orderBox button {
+.orderBox button,
+#shippingDiv button {
     background-color: rgba(0, 13, 128, 0.925);
     padding: .4em 2em;
     border-radius: 25px;
@@ -98,7 +99,11 @@ body {
     margin-top: 1em;
     display: block;
 }
-
+.orderBox a ,
+#shippingDiv a {
+    text-decoration: none;
+    color: white;
+}
 .orderBox button:hover {
     cursor: pointer;
 }
@@ -152,8 +157,9 @@ body {
 
 .userHome_main button:focus {
     outline: none;
-    background-color: rgba(121, 245, 218, 0.349);
 }
+
+
 
 input, textarea {
     display: block;
@@ -212,4 +218,17 @@ input, textarea {
     margin: 1em auto;
 }
 
+#shippingDiv {
+    background-color: rgba(255, 255, 255, 0.699);
+    padding: 1em 2em;
+    border-radius: 5px;
+    padding-bottom: 3em;
+    width: 90%;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.068);
+    display: inline-block;
+    text-align: left;
+}
 
+.activeButton {
+    background-color: rgba(121, 245, 218, 0.349) !important;
+}

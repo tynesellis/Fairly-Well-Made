@@ -1,0 +1,21 @@
+<div id="shippingDiv">
+
+    <p>Please print these labels:</p>
+    <h1>Shipping Label: Goes on the outside of the package ;)</h1>
+    <div class="label_packing">
+        <h2>SHIP TO:</h2>
+        <h2>{{buyer.firstName}} {{buyer.lastName}}</h2>
+        <h2>{{buyer.streetNumber}} {{buyer.streetName}}</h2>
+        <h2>{{buyer.city}} {{buyer.state}} {{buyer.zip}}</h2>
+    </div>
+    <h1>Packing Slip: Goes on the inside of the package ;)</h1>
+    <div class="label_packing">
+        <h2>Order #: {{currentOrder.firebaseId}}</h2>
+        <h2>Thank you for your order with Fairly, Well Made.  Please remember to rate your seller!</h2>
+    </div>
+    <button ng-click="printSlip()">Print</button>
+    <button ng-click="">
+        <a href="#!/userHome">Home</a>
+    </button>
+
+</div>
