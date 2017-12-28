@@ -59,16 +59,16 @@ body {
 }
 
 .orderBox {
-    background-color: rgba(255, 255, 255, 0.699);
+    background-color: rgba(255, 255, 255, 0.815);
     padding: 1em 2em;
     border-radius: 5px;
     margin: .5em auto;
     width: 60%;
     height: 575px;
     overflow-y: scroll;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.068);
     display: inline-block;
     text-align: left;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .regHead {
@@ -182,12 +182,18 @@ input, textarea {
     margin-bottom: 1em;
 }
 
-.pin_head h2, img {
+.pin_head h2, img, a {
     display: inline-block;
 }
 
+.pin_head img {
+    height: 3em;
+    width: 3em;
+    padding-right: 1em;
+}
+
 .inspBoard {
-    width: 50%;
+    width: 70%;
 }
 .pin {
     display: inline-block;
@@ -199,6 +205,8 @@ input, textarea {
     border: .5px solid white;
     object-fit: cover;
     overflow-y: scroll;
+    height: 6em;
+    width: 6em;
 }
 
 #logout {

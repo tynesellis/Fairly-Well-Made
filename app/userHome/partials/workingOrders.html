@@ -14,7 +14,7 @@
     <div class="d-flex flex-wrap justify-content-between align-items-center inspBoard">
         <div class="pin" ng-repeat="pin in order.pins">
             <a href="{{pin.address}}" target="_blank">
-                <img height="100" width="100" class="pin_img" src="{{pin.image}}">
+                <img class="pin_img" src="{{pin.image}}">
             </a>
         </div>
     </div>
@@ -30,7 +30,7 @@
         <input type="text" placeholder="$$$" ng-model="updatedOrder.price">
     </div>
     <textarea rows="4" cols="50" placeholder="Add Comments" ng-model="updatedOrder.comment.value"></textarea>
-    <button id='{{order.firebaseId}}' ng-click="updateOrder()">Submit Price/Comment</button>
+    <button id='{{order.firebaseId}}' ng-click="updateOrder()">Submit</button>
     <button ng-if="order.approved === undefined" type="file" id='{{order.firebaseId}}' ng-click="selectOrder()" ngf-select="uploadSketch($file)">Add A Sketch</button>
     <button ng-if="order.approved !== undefined && order.completed !== true" id='{{order.firebaseId}}' ng-click="approveOrder('completed')">Done! Pay me :)</button>
     <button id='{{order.firebaseId}}' ng-if="order.completed === true"><a id='{{order.firebaseId}}' href="#!/shipping" ng-click="setShipping()">Packing Slip</a></button>

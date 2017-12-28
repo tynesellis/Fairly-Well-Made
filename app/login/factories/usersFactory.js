@@ -16,7 +16,6 @@ angular.module("fwmApp")
                             userHomeFactory.pull("users", idToken).then(users => {
                                 //..set userInfo scope to the user that matches the logged in user
                                 userProfile = users.find(user => user.uid === firebase.auth().currentUser.uid)
-                                console.log(userProfile)
                             })
                         })
                         $location.url("/userHome")
