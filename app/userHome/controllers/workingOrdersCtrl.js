@@ -53,19 +53,39 @@ angular.module("fwmApp").controller("workingOrdersCtrl",
             else { $scope.firstPage = true }
         }
 
-       $scope.setShipping = ()=>{
-           userHomeFactory.setShipping();
-       }
+        $scope.setShipping = () => {
+            userHomeFactory.setShipping();
+        }
+
+        $scope.approveOrder = (key) => {
+            const orderId = event.target.id;
+            const message = document.createElement("h3");
+
+            if (key === 'approved') {
+                message.innerHTML = "Order Approved! We'll notify the seller. Check back for updates";
+            } else if (key === 'completed') {
+                message.innerHTML = "Completed Order.  Come back when you have received payment to print a packing slip";
+            }
+            event.path[0].remove();
+            event.path[1].appendChild(message);
+
+            firebase.auth().currentUser.getIdToken(true)
+                .then(idToken => {
+                    userHomeFactory.update(true, idToken, "orders", orderId, key)
+                })
+        }
+
         $scope.packingId = "";
         $scope.gotPaid = () => {
+            debugger
             const clicked = event;
             firebase.auth().currentUser.getIdToken(true)
                 .then(idToken => {
                     userHomeFactory.update(true, idToken, "orders", clicked.path[0].id, "paid").then(() => {
-                        clicked.path[0].remove();
                         const message = document.createElement("h3");
                         message.innerHTML = "Payment marked recieved.  Buyer will be notified that shipping is imminent."
                         clicked.path[1].appendChild(message)
+                        clicked.path[0].remove();
                     })
                 })
         }
@@ -100,7 +120,6 @@ angular.module("fwmApp").controller("workingOrdersCtrl",
                                 $scope.updatedOrder.price = "";
                                 const message = document.createElement("h3");
                                 message.innerHTML = "Price proposed.  Check back for buyer's opinion."
-                                clicked.path[0].remove();
                                 clicked.path[1].appendChild(message);
                             })
                     }

@@ -1,5 +1,5 @@
 angular.module("fwmApp").controller("newOrder",
-    function ($scope, UsersFactory, userHomeFactory) {
+    function ($scope, UsersFactory, userHomeFactory, $timeout) {
 
         //empty object for bound data of new order
         $scope.newOrder = {}
@@ -33,11 +33,11 @@ angular.module("fwmApp").controller("newOrder",
                                 "seller": "Nobody yet"
                             }
                             //add to firebase: passes in new object, id token, and specifies section of firebase db
-                            userHomeFactory.add(newOrder, idToken, "orders")
+                            userHomeFactory.add(newOrder, idToken, "orders").then( 
+                                //reset want value to affect ng-ifs of home page
+                                $timeout($scope.userWants('reqs'), 300))
                             //clear out newOrder
                             $scope.newOrder = {}
-                            //reset want value to affect ng-ifs of home page
-                            $scope.userWants('reqs')
                         })
                 })
 

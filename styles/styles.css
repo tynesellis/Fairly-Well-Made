@@ -99,12 +99,14 @@ body {
     margin-top: 1em;
     display: block;
 }
+
 .orderBox a ,
 #shippingDiv a {
     text-decoration: none;
     color: white;
 }
-.orderBox button:hover {
+.orderBox button:hover,
+.shippingButton:hover {
     cursor: pointer;
 }
 
@@ -155,7 +157,8 @@ body {
     cursor: pointer;
 }
 
-.userHome_main button:focus {
+.userHome_main button:focus,
+.shippingButton:focus {
     outline: none;
 }
 
