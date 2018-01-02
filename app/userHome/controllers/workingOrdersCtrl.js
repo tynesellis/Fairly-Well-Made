@@ -77,7 +77,6 @@ angular.module("fwmApp").controller("workingOrdersCtrl",
 
         $scope.packingId = "";
         $scope.gotPaid = () => {
-            debugger
             const clicked = event;
             firebase.auth().currentUser.getIdToken(true)
                 .then(idToken => {
