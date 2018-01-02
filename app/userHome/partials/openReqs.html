@@ -1,7 +1,7 @@
 
     <button ng-disabled="firstPage" ng-class="{'disabled': firstPage}" class="pageChange" ng-click="changePage('back')"><</button>
 
-    <div ng-hide="{{$index}} === page" ng-show="{{$index}} !== page" class="orderBox" ng-repeat="order in myOrders">
+    <div ng-show="{{$index}} === page" class="orderBox" ng-repeat="order in myOrders">
         <h1 ng-if="order.approved !== undefined && order.completed === undefined">Request Status:) BEING MADE NOW :)</h1>
         <h1 ng-if="order.paid === true">Request Status: Paid | {{order.sellerName}} is shipping it!!</h1>
 
@@ -23,7 +23,7 @@
             </div>
         </div>
         <h3 ng-if="order.image !== undefined">Proposed Sketch: </h3>
-        <img ng-if="order.image !== undefined" src="{{order.image}}" class="pin_img" height="100px" width="100px">
+        <a href="{{order.image}}" target="_blank"><img ng-if="order.image !== undefined" src="{{order.image}}" width=auto height="150"></a>
         <h3 ng-if="order.price !== undefined">Current Proposed Price: {{order.price}}</h3>
         <h3 ng-if="order.comments !== undefined">Comments:</h3>
         <div ng-if="order.comments !== undefined" ng-repeat="comment in order.comments">
@@ -32,7 +32,7 @@
         <textarea rows="4" cols="50" placeholder="Add Comments" ng-model="updatedOrder.comment.value"></textarea>
         <button id='{{order.firebaseId}}' ng-click="updateOrder()">Submit</button>
         <button ng-if="order.price !== undefined && order.approved === undefined" id='{{order.firebaseId}}' ng-click="approveOrder('approved')">Approved: Make this for me!!</button>
-        <a ng-if="order.completed !== undefined && order.paid !==true" href="https://venmo.com/{{order.sellerVenmo}}" target="_blank">Pay Seller</a>
+        <button ng-if="order.completed !== undefined && order.paid !==true"><a href="https://venmo.com/{{order.sellerVenmo}}" target="_blank">Pay Seller</a></button>
     </div>
 
     <button ng-disabled="lastPage" ng-class="{'disabled': lastPage}" class="pageChange" ng-click="changePage('next')">></button>

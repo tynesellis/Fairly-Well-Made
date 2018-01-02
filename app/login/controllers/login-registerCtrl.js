@@ -26,26 +26,29 @@ angular.module("fwmApp")
                 $location.path("/userHome")
             })
         }
-
-        $scope.authenticatedUser = {}
+        $scope.hideMe = ()=>{
+            event.path[0].remove()
+        }
+        $scope.newbie = {}
 
         $scope.setUpUser = function () {
             firebase.auth().currentUser.getIdToken(true)
                 .then(idToken => {
                     const newUserObject = {
                         "uid": firebase.auth().currentUser.uid,
-                        "firstName": $scope.authenticatedUser.firstName,
-                        "lastName": $scope.authenticatedUser.lastName,
-                        "streetNumber": $scope.authenticatedUser.streetNumber,
-                        "streetName": $scope.authenticatedUser.streetName,
-                        "city": $scope.authenticatedUser.city,
-                        "state": $scope.authenticatedUser.state,
-                        "zip": $scope.authenticatedUser.zip,
-                        "pinterest": $scope.authenticatedUser.pinterest,
-                        "venmo": $scope.authenticatedUser.venmo
+                        "firstName": $scope.newbie.firstName,
+                        "lastName": $scope.newbie.lastName,
+                        "streetNumber": $scope.newbie.streetNumber,
+                        "streetName": $scope.newbie.streetName,
+                        "city": $scope.newbie.city,
+                        "state": $scope.newbie.state,
+                        "zip": $scope.newbie.zip,
+                        "pinterest": $scope.newbie.pinterest,
+                        "venmo": $scope.newbie.venmo
                     }
+                    UsersFactory.setUser(newUserObject);
                     userHomeFactory.add(newUserObject, idToken, "users").then(() => {
-                        $scope.authenticatedUser = {}
+                        $scope.newbie = {}
                         $route.reload();
                         $location.url("/userHome")
                     })

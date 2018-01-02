@@ -10,6 +10,14 @@ angular.module("fwmApp")
 
                 $timeout(function () {
                     if ($location.url() !== "/register") {
+                        firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            //..get the users section of firebase...
+                            userHomeFactory.pull("users", idToken).then(users => {
+                                //..set userInfo scope to the user that matches the logged in user
+                                userProfile = users.find(user => user.uid === firebase.auth().currentUser.uid)
+                            })
+                        })
                         $location.url("/userHome")
                     }
                 }, 500)
@@ -22,6 +30,7 @@ angular.module("fwmApp")
                 }, 500);
             }
         })
+        
 
         return Object.create(null, {
             isAuthenticated: {
@@ -29,6 +38,9 @@ angular.module("fwmApp")
                     const user = currentUserData
                     return user ? true : false
                 }
+            },
+            setUser: {
+                value: (user)=> {userProfile = user}
             },
             getUser: {
                 value: () => userProfile
