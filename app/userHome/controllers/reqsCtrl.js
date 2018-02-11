@@ -67,6 +67,6 @@ angular.module("fwmApp").controller("reqsCtrl",
                 })
         }
         
-
+        $scope.demoPay = ()=>{alert("Normally, you would be taken to the seller's venmo page.  However, this is Demo Mode, so please don't pay anyone for anything.")}
     }
 )

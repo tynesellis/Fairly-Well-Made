@@ -32,7 +32,8 @@
         <textarea rows="4" cols="50" placeholder="Add Comments" ng-model="updatedOrder.comment.value"></textarea>
         <button id='{{order.firebaseId}}' ng-click="updateOrder()">Submit</button>
         <button ng-if="order.price !== undefined && order.approved === undefined" id='{{order.firebaseId}}' ng-click="approveOrder('approved')">Approved: Make this for me!!</button>
-        <button ng-if="order.completed !== undefined && order.paid !==true"><a href="https://venmo.com/{{order.sellerVenmo}}" target="_blank">Pay Seller</a></button>
+        <!-- Non-Demo Mode: <button ng-if="order.completed !== undefined && order.paid !==true"><a href="https://venmo.com/{{order.sellerVenmo}}" target="_blank">Pay Seller</a></button> -->
+        <button ng-if="order.completed !== undefined && order.paid !==true" ng-click="demoPay()">Pay Seller</button>
     </div>
 
     <button ng-disabled="lastPage" ng-class="{'disabled': lastPage}" class="pageChange" ng-click="changePage('next')">></button>
