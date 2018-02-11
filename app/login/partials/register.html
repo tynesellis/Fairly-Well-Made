@@ -2,8 +2,10 @@
     <div class="orderBox">
         <h2 class="regHead">Start Registration Below</h2>
         <input type="email" ng-model="user.email" placeholder="Email">
-        <input type="password" ng-model="user.password" placeholder="Password">
+        <input type="password" ng-model="user.password" placeholder="Password" ng-minlength="6">
         <button class="regNext" ng-click="registerUser(user)">Next</button>
+        <p class="regHead">Just Want A Tour?<p>
+        <button ng-click="userWants('login')">Check Out Visitor Login!</button>
     </div>
 </div>
 

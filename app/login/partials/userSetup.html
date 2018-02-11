@@ -2,16 +2,15 @@
     <div class="orderBox" id="setupBox">
         <h2 class="regHead">Let's Get You Started!</h2>
 
-        <input type="text" ng-model="newbie.firstName" placeholder="First Name">
-        <input type="text" ng-model="newbie.lastName" placeholder="Last Name">
-        <input type="text" ng-model="newbie.streetNumber" placeholder="Street Number">
-        <input type="text" ng-model="newbie.streetName" placeholder="Street Name">
-        <input type="text" ng-model="newbie.city" placeholder="City">
-        <input type="text" ng-model="newbie.state" placeholder="State">
-        <input type="text" ng-model="newbie.zip" placeholder="Zip Code">
-        <input type="text" ng-model="newbie.pinterest" placeholder="Your Pinterest Username">
-        <a id="pinAuth" ng-show="newbie.pinterest" ng-click="hideMe()" target="_blank" href="https://api.pinterest.com/oauth/?response_type=code&scope=read_public,write_public&client_id=4938339992171723562&redirect_uri=http://127.0.0.1:8080">Click To Authorize Pinterest</a>
-        <input type="text" ng-model="newbie.venmo" placeholder="First Venmo User Name">
+        <input type="text" ng-model="newbie.firstName" placeholder="First Name" required>
+        <input type="text" ng-model="newbie.lastName" placeholder="Last Name" required>
+        <input type="text" ng-model="newbie.streetNumber" placeholder="Street Number" required>
+        <input type="text" ng-model="newbie.streetName" placeholder="Street Name" required>
+        <input type="text" ng-model="newbie.city" placeholder="City" required>
+        <input type="text" ng-model="newbie.state" placeholder="State" required>
+        <input type="text" ng-model="newbie.zip" placeholder="Zip Code" required>
+        <input type="text" ng-model="newbie.pinterest" placeholder="Your Pinterest Username" required>
+        <input type="text" ng-model="newbie.venmo" placeholder="First Venmo User Name" required>
         <button class="regNext" ng-click="setUpUser()">Submit</button>
     </div>
 </div>

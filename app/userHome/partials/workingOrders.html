@@ -31,7 +31,8 @@
     </div>
     <textarea rows="4" cols="50" placeholder="Add Comments" ng-model="updatedOrder.comment.value"></textarea>
     <button id='{{order.firebaseId}}' ng-click="updateOrder()">Submit</button>
-    <button ng-if="order.approved === undefined" type="file" id='{{order.firebaseId}}' ng-click="selectOrder()" ngf-select="uploadSketch($file)">Add A Sketch</button>
+    <button ng-if="order.approved === undefined" type="file" id='{{order.firebaseId}}' ng-click="selectOrder()"  ngf-select="uploadSketch($file)" ngf-max-size="1MB">Add A Sketch</button>
+    
     <button ng-if="order.approved !== undefined && order.completed !== true" id='{{order.firebaseId}}' ng-click="approveOrder('completed')">Done! Pay me :)</button>
     <button id='{{order.firebaseId}}' ng-if="order.completed === true"><a id='{{order.firebaseId}}' href="#!/shipping" ng-click="setShipping()">Packing Slip</a></button>
     <button id='{{order.firebaseId}}' ng-if="order.completed === true && order.price !== true && order.paid !== true" ng-click="gotPaid()">I got paid. Shipping Now -></button>

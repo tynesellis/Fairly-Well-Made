@@ -243,3 +243,5 @@ input, textarea {
 .activeButton {
     background-color: rgba(121, 245, 218, 0.349) !important;
 }
+
+#alert {color: red}
