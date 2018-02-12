@@ -19,7 +19,7 @@ angular.module("fwmApp")
                     $scope.user = {};
                     //send user to setup partial
                     $scope.wants = "setup"
-                }).catch((error)=>{alert(error.message)})
+                }).catch((error) => { alert(error.message) })
             }
         }
         //logout user function
@@ -38,7 +38,7 @@ angular.module("fwmApp")
                     $scope.user = {}
                     //send user to home page
                     $location.path("/userHome")
-                }).catch((error)=>{
+                }).catch((error) => {
                     //if firebase throws an error due to bad email or password, alert the user
                     alert(error.message)
                 });
@@ -95,5 +95,13 @@ angular.module("fwmApp")
                         })
                     })
             }
+        }
+        $scope.pinAuthURL;
+        $scope.getURL = () => {
+            firebase.auth().currentUser.getIdToken(true)
+                .then(idToken => {
+                    userHomeFactory.getPinAuth(idToken).
+                        then(response => { $scope.pinAuthURL = response.data; })
+                })
         }
     })

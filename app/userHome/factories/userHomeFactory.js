@@ -53,6 +53,17 @@ angular
                 value: ()=>{
                     return shipping
                 }
+            },
+            getPinAuth: {
+                value: function (idToken) {
+                    return $http({
+                        method: "GET",
+                        url: `https://fairly-well-made.firebaseio.com/pinterest/.json?auth=${idToken}`,
+                    }).then(response => {
+                        debugger
+                        return response;
+                    })
+                }
             }
 
         })

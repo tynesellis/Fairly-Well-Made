@@ -1,7 +1,7 @@
-<div class="homePages" ng-controller="login-registerCtrl">
+<div class="homePages" ng-controller="login-registerCtrl" ng-init="getURL()">
     <div class="orderBox" id="setupBox">
         <h2 class="regHead">Awesome! Now Just Click Below And Authorize Us To Use Your Pins!</h2>
-        <a id="pinAuth" ng-click="hideMe()" href="https://api.pinterest.com/oauth/?response_type=code&scope=read_public,write_public&client_id=4938339992171723562&redirect_uri=http://127.0.0.1:8080">Click To Authorize Pinterest</a>
+        <a id="pinAuth" ng-if="pinAuthURL" href="{{pinAuthURL}}">Click To Authorize Pinterest</a>
     </div>
 </div>
 
