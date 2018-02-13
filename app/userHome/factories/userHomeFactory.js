@@ -23,7 +23,7 @@ angular
                             return response.data[key]
                         })
                         return this.cache
-                    })
+                    }).catch(()=> {return null})
                 }
             },
             update: {
@@ -40,7 +40,7 @@ angular
                     return $http({
                         method: "GET",
                         url: `https://api.pinterest.com/v1/boards/${user}/${board}/pins/?access_token=AebAVU2uPOjzwAsf8cE_nLY0K7jAFQCGdfBoSM1EjHCqkSAryAAAAAA&fields=id%2Clink%2Cnote%2Curl%2Cboard%2Cattribution%2Ccolor%2Ccounts%2Ccreated_at%2Ccreator%2Cimage%2Cmedia%2Cmetadata%2Coriginal_link`,
-                    })
+                    }).catch(error => {return error})
                 }
                 
             }, 
@@ -60,7 +60,6 @@ angular
                         method: "GET",
                         url: `https://fairly-well-made.firebaseio.com/pinterest/.json?auth=${idToken}`,
                     }).then(response => {
-                        debugger
                         return response;
                     })
                 }

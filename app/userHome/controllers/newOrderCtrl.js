@@ -17,29 +17,35 @@ angular.module("fwmApp").controller("newOrder",
                         }
                         pins.push(eachPin)
                     })
+                }).catch(error => {
+                    alert("Hmmmm.  That Inspiration Board Doesn't match what Pinterest has.");
+                    $scope.newOrder = {};
                 }).then(() => {
-                    //get fresh token
-                    firebase.auth().currentUser.getIdToken(true)
-                        .then(idToken => {
-                            //create order
-                            const newOrder = {
-                                "buyer": $scope.userInfo.uid,
-                                "buyerName": $scope.userInfo.firstName,
-                                "pinterest": $scope.userInfo.pinterest,
-                                "board": $scope.newOrder.board.replace(/ /g, '-').toLowerCase(),
-                                "pins": pins,
-                                "description": $scope.newOrder.description,
-                                "size": $scope.newOrder.size,
-                                "seller": "Nobody yet"
-                            }
-                            //add to firebase: passes in new object, id token, and specifies section of firebase db
-                            userHomeFactory.add(newOrder, idToken, "orders").then( 
-                                //reset want value to affect ng-ifs of home page
-                                $timeout($scope.userWants('reqs'), 300))
-                            //clear out newOrder
-                            $scope.newOrder = {}
-                        })
+                    if (pins.length > 0) {
+                        //get fresh token
+                        firebase.auth().currentUser.getIdToken(true)
+                            .then(idToken => {
+                                //create order
+                                const newOrder = {
+                                    "buyer": $scope.userInfo.uid,
+                                    "buyerName": $scope.userInfo.firstName,
+                                    "pinterest": $scope.userInfo.pinterest,
+                                    "board": $scope.newOrder.board.replace(/ /g, '-').toLowerCase(),
+                                    "pins": pins,
+                                    "description": $scope.newOrder.description,
+                                    "size": $scope.newOrder.size,
+                                    "seller": "Nobody yet"
+                                }
+                                //add to firebase: passes in new object, id token, and specifies section of firebase db
+                                userHomeFactory.add(newOrder, idToken, "orders").then(
+                                    //reset want value to affect ng-ifs of home page
+                                    $timeout($scope.userWants('reqs'), 300))
+                                //clear out newOrder
+                                $scope.newOrder = {}
+                            })
+                    }
                 })
+
 
         }
 

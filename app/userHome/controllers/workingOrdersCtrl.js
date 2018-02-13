@@ -5,6 +5,7 @@ angular.module("fwmApp").controller("workingOrdersCtrl",
         $scope.page = 0;
         $scope.lastPage = false;
         $scope.firstPage = true;
+        $scope.noOrders = false;
         
         //array to hold orders being worked by the current users
         $scope.ordersBeingWorked = []
@@ -18,8 +19,11 @@ angular.module("fwmApp").controller("workingOrdersCtrl",
                         const cuid = firebase.auth().currentUser.uid;
                         //filter out orders picked to work on by user
                         const filteredOrders = orders.filter(order => order.seller === cuid);
-                        $scope.pages = filteredOrders.length;
-                        $scope.ordersBeingWorked = filteredOrders;
+                        if(filteredOrders.length > 0){
+                            $scope.pages = filteredOrders.length;
+                            $scope.ordersBeingWorked = filteredOrders;
+                        } else{$scope.noOrders = true}
+
                     })
                 })
         }
