@@ -243,3 +243,84 @@ input, textarea {
 .activeButton {
     background-color: rgba(121, 245, 218, 0.349) !important;
 }
+
+#alert {
+    color: red
+}
+
+@media screen and (max-width: 699px) {
+    .userHome_main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .userHome_main button {
+        background-color: rgba(255, 255, 255, .8); 
+        padding: .3em 1em;
+        border-radius: 25px;
+        border: none;
+        color: Black;
+        font-size: 1em;
+        box-shadow: 1px 1px 1px grey;
+        margin: .15em;
+    }
+
+    #userHome_header {
+        display: flex;
+        justify-content: space-between;
+        color: white;
+        border-bottom: .25px solid white;
+        margin-bottom: .25em;
+    }
+
+    #userHome_header h1 {
+        padding: 0 .25em;
+        margin: .25em;
+        font-family: courier;
+        font-weight: 100;
+        font-size: .5em;
+    }
+
+    .orderBox {
+        background-color: rgba(255, 255, 255, 0.815);
+        padding: 1em 2em;
+        border-radius: 5px;
+        margin: .7em auto;
+        width: 70%;
+        text-align: left;
+        font-size: .7em;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+
+    .orderBox button {
+        width: 90%;
+    }
+
+    .pageChange {
+        display: inline-block;
+        font-size: .2em;
+        color: white;
+        margin: .5em;
+        background-color: rgba(255, 255, 255, 0);
+        border: none;
+        padding: 0;
+        transform: scale(2, 15);
+    }
+
+    #navDiv {
+        font-size: .2em;
+        text-align: center;
+    }
+
+    #setupBox {
+        overflow-y: scoll;
+        margin-bottom: 2em;
+        padding-bottom: 5em;
+    }
+    #setupBox input {
+        margin: .1em 0;
+    }
+    #setupBox button {
+        padding: .5em;
+    }
+}

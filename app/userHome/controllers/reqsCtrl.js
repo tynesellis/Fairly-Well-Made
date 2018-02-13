@@ -6,6 +6,7 @@ angular.module("fwmApp").controller("reqsCtrl",
         $scope.firstPage = true;
         //array of orders that match the user
         $scope.myOrders = [];
+        $scope.noOrders = false;
         $scope.getMyOrders = () => {
             //get a fresh token
             firebase.auth().currentUser.getIdToken(true)
@@ -14,7 +15,11 @@ angular.module("fwmApp").controller("reqsCtrl",
                     userHomeFactory.pull("orders", idToken).then(orders => {
                         //filter out orders with a user id that match the id of the signed in user
                         $scope.myOrders = orders.filter(order => order.buyer === firebase.auth().currentUser.uid)
-                        $scope.pages = $scope.myOrders.length;
+                        //if the user has no orders, set noOrders to true.  This will affect ng-if of h1 display that tells user there are no orders
+                        if ($scope.myOrders.length > 0){
+                            $scope.pages = $scope.myOrders.length;
+                        } else { $scope.noOrders = true }
+
                     })
                 })
         }
@@ -38,16 +43,15 @@ angular.module("fwmApp").controller("reqsCtrl",
         }
 
         $scope.changePage = (direction) => {
-            if (direction === "next" && $scope.page < ($scope.pages -1)) {
+            if (direction === "next" && $scope.page < ($scope.pages - 1)) {
                 $scope.page += 1;
-            } else if (direction === "back" && $scope.page !== 0)
-            {$scope.page -= 1}
-            if (($scope.pages -1) === $scope.page) {
+            } else if (direction === "back" && $scope.page !== 0) { $scope.page -= 1 }
+            if (($scope.pages - 1) === $scope.page) {
                 $scope.lastPage = true
             }
-            else {$scope.lastPage = false}
-            if ($scope.page !== 0) {$scope.firstPage = false}
-            else {$scope.firstPage = true}
+            else { $scope.lastPage = false }
+            if ($scope.page !== 0) { $scope.firstPage = false }
+            else { $scope.firstPage = true }
         }
 
         $scope.updatedOrder = {}
@@ -66,7 +70,7 @@ angular.module("fwmApp").controller("reqsCtrl",
                     }
                 })
         }
-        
 
+        $scope.demoPay = () => { alert("Normally, you would be taken to the seller's venmo page.  However, this is Demo Mode, so please don't pay anyone for anything.") }
     }
 )

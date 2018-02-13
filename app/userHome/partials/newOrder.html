@@ -1,6 +1,14 @@
 
 <div class="orderBox" ng-controller="newOrder">
 <h1 class="regHead">Let's Make an Order!</h1>
+<div class="regHead" ng-if="userInfo.firstName === 'Visitor'">
+    <h4>For Visitors: Use One of Our Sample Pinterest Inspiration Boards:</h4>
+            <p>"Slacks"</p>
+            <p>"Shirts"</p>
+            <p>"Top Hats"</p>
+            <p>"My Sweaters"</p>
+            <p>"Sun Dresses"</p>
+</div>
 
 <input type="text" ng-model="newOrder.board" placeholder="Your Pinterest Inspiration Board Name">
 <input type="textarea" ng-model="newOrder.description" placeholder="Describe What You Want">
