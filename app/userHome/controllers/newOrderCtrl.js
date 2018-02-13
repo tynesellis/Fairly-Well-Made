@@ -9,7 +9,6 @@ angular.module("fwmApp").controller("newOrder",
             firebase.auth().currentUser.getIdToken(true)
                 .then(idToken => {
                     userHomeFactory.getPinsAuth(idToken).then(response => {
-                        debugger
                         $scope.pinAuth = response.data;
                     })
                 });
