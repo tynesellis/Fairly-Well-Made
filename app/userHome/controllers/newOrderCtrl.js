@@ -4,11 +4,19 @@ angular.module("fwmApp").controller("newOrder",
         //empty object for bound data of new order
         $scope.newOrder = {}
         //function to create new order and post it to firebase 'orders' section
-
+        $scope.pinAuth = "";
+        $scope.init = () => {
+            firebase.auth().currentUser.getIdToken(true)
+                .then(idToken => {
+                    userHomeFactory.getPinsAuth(idToken).then(response => {
+                        $scope.pinAuth = response.data;
+                    })
+                });
+        };
 
         $scope.makeOrder = () => {
             const pins = [];
-            userHomeFactory.pins($scope.userInfo.pinterest, $scope.newOrder.board.replace(/ /g, '-').toLowerCase())
+            userHomeFactory.pins($scope.userInfo.pinterest, $scope.newOrder.board.replace(/ /g, '-').toLowerCase(), $scope.pinAuth)
                 .then(response => {
                     response.data.data.forEach(pin => {
                         let eachPin = {
