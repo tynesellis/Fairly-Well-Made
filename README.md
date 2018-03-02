@@ -1,0 +1,3 @@
+# Fairly-Well-Made
+
+Fairly, Well Made provides a platform to order or sell handmade apparel. Users register and login using Firebase Authentication via the font-end, built on AngularJS. During registration, users authorize Fairly, Well Made to access their Pinterst accounts. They are then able to add the name of their Pinterest Inspiration Board to any order request, so the pins appear to clothing producers directly on that request. Interactions between consumers and producers are stored and retrieved via calls to Firebase, where all data is stored. In addition, producers of clothing can upload proposal sketches via the ng-file-upload directive.
